@@ -57,8 +57,8 @@ emp_02       |       100     |      20      |
 * Average absent time/month = total_absent_Time for all employee/ no of month                                       
  
  
-* To calculate the average expected arrival time, take arrival time of all day and  and sort it and take median.  
-***Question:*** How to save all user arrival time for all days. What should be the schema for that? (Stuck) 
+#### To calculate the average expected arrival time, take arrival time of all day and  and sort it and take median.  
+**Question:** How to save all user arrival time for all days. What should be the schema for that? (Stuck) 
   
   
  
