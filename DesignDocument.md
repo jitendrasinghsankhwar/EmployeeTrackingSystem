@@ -48,12 +48,14 @@ emp_02       |       100     |      20      |
 * Average working time/week = total_working_Time/ no of weeks                                          
 * Average working time/month = total_working_Time/ no of month                                                    
 * Average absent time/week = total_absent_Time/ no of weeks                                                       
-* Average absent time/month = total_absent_Time/ no of month                                                             
+* Average absent time/month = total_absent_Time/ no of month  
+
 ### Calculation for all Employee :                                      
 * Average working time/week = total_working_Time for all employee/ no of weeks                                   
 * Average working time/month = total_working_Time for all employee/ no of month 
-* Average absent time/week = total_absent_Time for all employee/ no of weeks                                          
+* Average absent time/week = total_absent_Time for all employee/ no of weeks 
 * Average absent time/month = total_absent_Time for all employee/ no of month                                       
+ 
  
 * To calculate the average expected arrival time, take arrival time of all day and  and sort it and take median.  
 ***Question:*** How to save all user arrival time for all days. What should be the schema for that? (Stuck) 
