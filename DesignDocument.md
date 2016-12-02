@@ -28,9 +28,9 @@ Calculate the following attribute.
 ### Generator Alogrithm : 
 Generator will generate data daily and save into JSON file. For each day generator will generate one json file.
 
- Attributes  | computation | comments        |
+ Attributes  | Computation | Comments        |
  ------------ | :-----------: | -----------: |
-EmployeeId      |       "emp_" + Random(1000 , 9999)    |      "emp" is intial for all employee and i = 1001    |
+employeeId      |       "emp_" + Random(1000 , 9999)    |      "emp" is intial for all employee and i = 1001    |
 loginTime       |          Random(minArrivalTime , maxArrivalTime )         |      intialize minArrivalTime as 9am and maxArrivalTime as 11am      |               
 logoutTime       |       Random(maxArrivalTime , maxLogoutTime)      |      intialize maxLogoutTime as 6pm      | 
 
