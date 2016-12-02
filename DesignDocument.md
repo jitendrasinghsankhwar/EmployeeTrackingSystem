@@ -41,11 +41,11 @@ Steps 1: choose the  minArrivalTime = 9 , maxArrivalTime = 11 , maxLogoutTime = 
 Step 2: generate random loginTime = Random(minArrivalTime , maxArrivalTime ) 
 Step 3: if(logoutTime - loginTime) > 2hr then repeat Step2   
 Step 4: generate random logoutTime = Random(maxArrivalTime , maxLogoutTime) 
-Step 4: if(counter >= maxAbsentTime) logoutTime = maxLgoutTime
-Step 5: update minArrivalTime and maxArrivalTime values: minArrivalTime = logoutTime, maxArrivalTime = maxLogoutTime  
-Step 6: counter = counter + (logoutTime - loginTime)
-Step 7: create employee data object using employee id and calculated login and Logout Time                          
-Step 8: repeat 2 to 7 steps while(maxArrivalTime + constant (lets assume 20 mins, because probability of coming exact      maxLogoutTime is very less ) <=  maxLogoutTime)                                             
+Step 5: if(counter >= maxAbsentTime) logoutTime = maxLgoutTime
+Step 6: update minArrivalTime and maxArrivalTime values: minArrivalTime = logoutTime, maxArrivalTime = maxLogoutTime  
+Step 7: counter = counter + (logoutTime - loginTime)
+Step 8: create employee data object using employee id and calculated login and Logout Time                          
+Step 9: repeat 2 to 9 steps while(maxArrivalTime + constant (lets assume 20 mins, because probability of coming exact      maxLogoutTime is very less ) <=  maxLogoutTime)                                             
 Step 8: Save generated data into json file.                                                            
 <!-- Repeat the above steps to generate data for multiple day -->    
 ```
