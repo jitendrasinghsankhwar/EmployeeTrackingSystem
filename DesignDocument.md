@@ -58,12 +58,13 @@ Step 8: Save generated data into json file.
 Read the JSON file and calculate the total working time, and total absent time of each user and save it in following format 
 Sample Schema to save data for all month:  Saving data in day wise.
 
-**PrimaryKey :** Emp_id, date
+**PrimaryKey :** Emp_id, period
 
-  Emp_Id: text  | Working_Time: long | Absent_Time: long | Arival_Time: long | date: DATE|
+  Emp_Id: text  | Working_Time: long | Absent_Time: long | Arival_Time: long | Period: Integer|
 ------------   | :-----------:        | :-----------:       |:-----------:   | -----------: |
- emp_01           |       8              |      0              | 9              | 11-11-2016   | 
- emp_02           |       7              |      1              | 10             | 11-11-2016   |                                                                 
+ emp_01           |       8              |      0              | 9              | 2016-11-11| 
+ emp_01           |       7              |      1              | 10             | 2016-12-11|                              
+ emp_01           |       15             |      1              | 9.5            |  1  |                              
 
 #### To calculate the average expected arrival time, take arrival time of all day and  and sort it and take median.  
 
