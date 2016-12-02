@@ -64,7 +64,7 @@ Sample Schema to save data for all month:  Saving data in day wise.
 ------------   | :-----------:        | :-----------:       |:-----------:   | -----------: |
  emp_01           |       8              |      0              | 9              | 2016-11-11| 
  emp_01           |       7              |      1              | 10             | 2016-12-11|                              
- emp_01           |       15             |      1              | 9.5            |  1  |                              
+ emp_01           |       15             |      1              | 9.5            |  1(week)  |                              
 
 #### To calculate the average expected arrival time, take arrival time of all day and  and sort it and take median.  
 
