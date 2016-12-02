@@ -50,13 +50,13 @@ Step 8: Save generated data into json file.
 <!-- Repeat the above steps to generate data for multiple day -->    
 ```
 
-### Computation Engine Algorithm
+### Computation Engine 
 **Input :** raw data json file generator by Generator and calculate the the working_Time, Absent_Time, Arival_Time. 
 **Output :** Store data into cassendra table.
 
   
 Read the JSON file and calculate the total working time, and total absent time of each user and save it in following format 
-Sample Schema to save data for all month:  
+Sample Schema to save data for all month:  Saving data in day wise.
 
 **PrimaryKey :** Emp_id, date
 
