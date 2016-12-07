@@ -60,7 +60,7 @@ Sample Schema to save data for all month:  Saving data in day wise.
 
 **PrimaryKey :** Emp_id, period
 
-  Emp_Id: text  | Working_Time: long | Absent_Time: long | Arival_Time: long | Period: Integer|
+  Emp_Id: text  | Working_Time: long | Absent_Time: long | Arival_Time: long | Period: String|
 ------------   | :-----------:        | :-----------:       |:-----------:   | -----------: |
  emp_01           |       8              |      0              | 9              | 2016-11-11| 
  emp_01           |       7              |      1              | 10             | 2016-12-11|                              
