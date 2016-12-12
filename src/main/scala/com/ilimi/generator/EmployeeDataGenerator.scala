@@ -1,5 +1,6 @@
 package com.ilimi.generator
 import scala.util.Random
+
 import scala.collection.mutable.ListBuffer
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
@@ -13,11 +14,9 @@ import java.io.FileInputStream
 import com.ilimi.utils.PropertyReader
 import com.ilimi.utils.Utils
 import org.joda.time.Period
+import com.ilimi.utils.Contants
 
 object EmployeeDataGenerator {
-    val MIN_ARRIVAL_TIME = "minArrivalTime"
-    val MAX_ARRIVAL_TIME = "maxArrivalTime"
-    val MAX_LOGOUT_TIME = "maxLogoutTime"
 
     def dataGenerator(employeeCount: Int, date: String) {
         val listOfEmployeeEvents = new ListBuffer[scala.collection.mutable.Map[String, String]]()
@@ -28,7 +27,7 @@ object EmployeeDataGenerator {
             val dt = Utils.generateDateTime(date)
             for (employee <- 1 to employeeCount) {
                 val empId: String = "emp_" + (31800 + employee)
-                generateEmployeeEvents(empId, DateTime.parse(date + " " + PropertyReader.getProperty(MIN_ARRIVAL_TIME), DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")).getMillis, DateTime.parse(date + " " + PropertyReader.getProperty(MAX_ARRIVAL_TIME), DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")).getMillis)
+                generateEmployeeEvents(empId, DateTime.parse(date + " " + PropertyReader.getProperty(Contants.MIN_ARRIVAL_TIME), DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")).getMillis, DateTime.parse(date + " " + PropertyReader.getProperty(Contants.MAX_ARRIVAL_TIME), DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")).getMillis)
             }
             if (!new java.io.File(PropertyReader.getProperty("path") + dt.toLocalDate().toString() + "_eventsData.json").exists) {
                 val writer = new PrintWriter(new File(PropertyReader.getProperty("path") + dt.toLocalDate().toString() + "_eventsData.json"))
@@ -54,7 +53,7 @@ object EmployeeDataGenerator {
 
         // Generate each employee daily login, logout events
         def generateEmployeeEvents(employeeId: String, minArrivalTime: Long, maxArrivalTime: Long) {
-            val maxLogoutTime = DateTime.parse(date + " " + PropertyReader.getProperty(MAX_LOGOUT_TIME), DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")).getMillis
+            val maxLogoutTime = DateTime.parse(date + " " + PropertyReader.getProperty(Contants.MAX_LOGOUT_TIME), DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")).getMillis
             val rand: RandomData = new RandomDataImpl()
 
             // Generate epoch time using given date time format in string
