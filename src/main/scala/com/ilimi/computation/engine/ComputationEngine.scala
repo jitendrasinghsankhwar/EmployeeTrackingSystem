@@ -22,20 +22,20 @@ object ComputationEngine {
         val list = temp.map { case (a, (b, c, d, e)) => (a, b, c, d, e) }
         val employeedetails = list.map { x => Employee(x._1, x._2, x._3, x._4, x._5) }
         employeedetails.saveToCassandra(Contants.CONTENT_KEY_SPACE_NAME, Contants.TABLE_NAME)
-        updateMonthDataToDB(Contants.CONTENT_KEY_SPACE_NAME, Contants.TABLE_NAME, employeedetails)
+        updateMonthDataToDB(Contants.CONTENT_KEY_SPACE_NAME, Contants.TABLE_NAME, fileName, employeedetails)
         return employeedetails
     }
 
-    def updateMonthDataToDB(keyspaceName: String, tableName: String, data: RDD[Employee]) {
+    def updateMonthDataToDB(keyspaceName: String, tableName: String, fileName: String, data: RDD[Employee]) {
         val rdd = Utils.readCassendraTable
-        val filterByPeriodRDD = rdd.filter { x => Utils.getMonthFormat(x.period).equals(x.period) }
+        val date = Utils.getMonthFormat(fileName)
+        val filterByPeriodRDD = rdd.filter { x => date.equals(x.period) } 
         
         if (filterByPeriodRDD.isEmpty()) {
             data.map { x => Employee(x.empid, x.workingtime, x.absenttime, x.arrivaltime, Utils.getMonthFormat(x.period)) }.saveToCassandra(keyspaceName, tableName)
         } else {
-            val filterPeriod = filterByPeriodRDD.map { x => x.period.toString() }.first()
-            println(filterPeriod)
-            val dbData = data.map { x => EmpID(x.empid) }.joinWithCassandraTable[Employee](keyspaceName, tableName).on(SomeColumns("empid")).filter { x => Utils.getMonthFormat(filterPeriod).equals(x._2.period) }
+            val filterPeriod = filterByPeriodRDD.map { x => x.period }.first()
+            val dbData = data.map { x => EmpID(x.empid) }.joinWithCassandraTable[Employee](keyspaceName, tableName).on(SomeColumns("empid")).filter { x => filterPeriod.equals(x._2.period) }
             val joinedData = data.map { x => (EmpID(x.empid), x) }.leftOuterJoin(dbData)
             val updatedData = joinedData.map { x =>
                 val present = x._2._1
@@ -51,7 +51,7 @@ object ComputationEngine {
         val range = Utils.getAllDates(startDate, endDate)
         while (range.hasNext) {
             val date = range.next();
-            computeDrivedAttributes(Utils.generateDate(date))
+            computeDrivedAttributes(date.toLocalDate().toString())
         }
     }
 

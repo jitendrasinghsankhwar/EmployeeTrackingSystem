@@ -22,6 +22,7 @@ object EmployeeDataGenerator {
     def generate(employeeCount: Int, date: String, allPresent: Boolean): ListBuffer[scala.collection.mutable.Map[String, String]] = {
         val listOfEmployeeEvents = new ListBuffer[scala.collection.mutable.Map[String, String]]()
         val employeeIdList = scala.collection.mutable.Map[String, String]();
+        
         def generateRandomEmployeeStrenth(count: Int): Int = {
             val start = count % 10
             val end = count
@@ -41,7 +42,7 @@ object EmployeeDataGenerator {
 
         // Generate each employee daily login, logout events
         def generateEmployeeEvents(employeeId: String, minArrivalTime: Long, maxArrivalTime: Long) {
-            val maxLogoutTime = DateTime.parse(date + " " + PropertyReader.getProperty(Contants.MAX_LOGOUT_TIME), DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")).getMillis
+            val maxLogoutTime = Utils.getEPOCHTime(date, Contants.MAX_LOGOUT_TIME)
             val rand: RandomData = new RandomDataImpl()
 
             // Generate epoch time using given date time format in string
@@ -86,8 +87,7 @@ object EmployeeDataGenerator {
     def generateDataForRange(employeeCount: Int, range: Iterator[DateTime], allPresent: Boolean) = {
         while (range.hasNext) {
             val date = range.next();
-            println(date.toLocalDate())
-            generate(employeeCount, Utils.generateDate(date), allPresent)
+            generate(employeeCount, date.toLocalDate().toString(), allPresent)
         }
     }
     
@@ -100,9 +100,9 @@ object EmployeeDataGenerator {
     }
 
     def main(args: Array[String]) {
-        generate(20, "2016/12/05", true)
-        //      bulkDataGenerator(20)
-        println(Utils.getListOfFiles("src/main/resources/").length);
+//        generate(20, "2016-12-05", true)
+          bulkDataGenerator(20, true)
+//        println(Utils.getListOfFiles("src/main/resources/").length);
 
     }
 }

@@ -27,7 +27,7 @@ object Utils {
 
     def getAllDates(startDate: String, endDate: String): Iterator[DateTime] = {
         def dateRange(start: DateTime, end: DateTime, step: Period): Iterator[DateTime] = Iterator.iterate(start)(_.plus(step)).takeWhile(!_.isAfter(end))
-        val range = dateRange(DateTime.parse((startDate + " 09:00:00"), DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")), DateTime.parse((endDate + " 09:00:00"), DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")), Period.days(1))
+        val range = dateRange(DateTime.parse((startDate + " 09:00:00"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withZoneUTC()), DateTime.parse((endDate + " 09:00:00"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withZoneUTC()), Period.days(1))
         return range
     }
 
@@ -41,7 +41,7 @@ object Utils {
     }
 
     def getEPOCHTime(date: String, time: String): Long = {
-        return DateTime.parse(date + " " + PropertyReader.getProperty(time), DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")).getMillis
+        return DateTime.parse(date + " " + PropertyReader.getProperty(time), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withZoneUTC()).getMillis
     }
     
     def readFile(fileName: String): RDD[EmployeeEvent] = {
@@ -70,7 +70,7 @@ object Utils {
         sc.cassandraTable[Employee](Contants.CONTENT_KEY_SPACE_NAME, Contants.TABLE_NAME)
     }
     def generateDateTime(date: String): DateTime = {
-        return DateTime.parse((date + " 09:00:00"), DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss"))
+        DateTime.parse((date + " 09:00:00"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withZoneUTC())
     }
 
     def getCurrentMonthFormat: String = {
@@ -79,8 +79,9 @@ object Utils {
         return month.toString()
     }
     
-     def getMonthFormat(dt: String): String = {
-        val dt = new DateTime(); // current time
+     def getMonthFormat(date: String): String = {
+        println(date)
+        val dt = generateDateTime(date)
         val month = dt.getYear + "-" + dt.getMonthOfYear;
         return month.toString()
     }
