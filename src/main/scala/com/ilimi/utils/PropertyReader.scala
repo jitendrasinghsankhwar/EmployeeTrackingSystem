@@ -1,11 +1,12 @@
 package com.ilimi.utils
-import java.util.Properties
+
 import java.io.FileInputStream
+import java.util.Properties
 
 object PropertyReader {
     val prop = new Properties()
     try {
-      prop.load(new FileInputStream("src/main/resources/appConfig.properties"))
+        prop.load(new FileInputStream("src/main/resources/appConfig.properties"))
     } catch { case e: Exception => 
       e.printStackTrace()
       sys.exit(1)
