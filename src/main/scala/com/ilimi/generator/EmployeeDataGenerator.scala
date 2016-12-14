@@ -100,8 +100,8 @@ object EmployeeDataGenerator {
     }
 
     def main(args: Array[String]) {
-//        generate(20, "2016-12-05", true)
-          bulkDataGenerator(20, true)
+        //generate(3, "2016-12-08", true)
+          bulkDataGenerator(3, "2016-12-05", "2016-12-08", true)
 //        println(Utils.getListOfFiles("src/main/resources/").length);
 
     }

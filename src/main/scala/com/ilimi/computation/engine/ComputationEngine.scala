@@ -30,6 +30,7 @@ object ComputationEngine {
         val rdd = Utils.readCassendraTable
         val date = Utils.getMonthFormat(fileName)
         val filterByPeriodRDD = rdd.filter { x => date.equals(x.period) } 
+        val time = rdd.filter { x => fileName.length().equals(x.period.length()) }.collect()
         
         if (filterByPeriodRDD.isEmpty()) {
             data.map { x => Employee(x.empid, x.workingtime, x.absenttime, x.arrivaltime, Utils.getMonthFormat(x.period)) }.saveToCassandra(keyspaceName, tableName)
@@ -40,8 +41,11 @@ object ComputationEngine {
             val updatedData = joinedData.map { x =>
                 val present = x._2._1
                 val monthData = x._2._2.get
-                // TODO calculate arrivaltime for the period
-                Employee(x._1.empid, present.workingtime + monthData.workingtime, present.absenttime + monthData.absenttime, monthData.arrivaltime, monthData.period)
+                val artTime = time.filter { y => y.empid.equals(x._1.empid) }.sortBy { f => f.absenttime }
+                val count = artTime.length
+                val temp: Int = (count/2).toInt
+                val AvgArrivalTime = if(count == 1) artTime(0).arrivaltime else if(count % 2 == 0) (artTime(temp-1).arrivaltime + artTime(temp).arrivaltime) / 2 else artTime(temp-1).arrivaltime
+                Employee(x._1.empid, present.workingtime + monthData.workingtime, present.absenttime + monthData.absenttime, AvgArrivalTime, monthData.period)
             }
             updatedData.saveToCassandra(keyspaceName, tableName)
         }
