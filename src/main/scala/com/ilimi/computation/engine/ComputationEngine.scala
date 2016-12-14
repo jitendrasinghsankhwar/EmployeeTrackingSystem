@@ -41,10 +41,10 @@ object ComputationEngine {
             val updatedData = joinedData.map { x =>
                 val present = x._2._1
                 val monthData = x._2._2.get
-                val artTime = time.filter { y => y.empid.equals(x._1.empid) }.sortBy { f => f.absenttime }
+                val artTime = time.filter { y => y.empid.equals(x._1.empid) }.sortBy { f => f.arrivaltime }
                 val count = artTime.length
                 val temp: Int = (count/2).toInt
-                val AvgArrivalTime = if(count == 1) artTime(0).arrivaltime else if(count % 2 == 0) (artTime(temp-1).arrivaltime + artTime(temp).arrivaltime) / 2 else artTime(temp-1).arrivaltime
+                val AvgArrivalTime = if(count == 1) artTime(0).arrivaltime else if(count % 2 == 0) (artTime(temp - 1).arrivaltime + artTime(temp).arrivaltime) / 2 else artTime(temp).arrivaltime
                 Employee(x._1.empid, present.workingtime + monthData.workingtime, present.absenttime + monthData.absenttime, AvgArrivalTime, monthData.period)
             }
             updatedData.saveToCassandra(keyspaceName, tableName)
@@ -64,6 +64,6 @@ object ComputationEngine {
     }
 
     def main(args: Array[String]) {
-        computeAttributeForDate("2016-12-06")
+        computeAttributeForDate("2016-12-07")
     }
 }
