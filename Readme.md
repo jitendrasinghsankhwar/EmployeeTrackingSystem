@@ -1,5 +1,5 @@
 ## Design Document for Employee Tracking system 
- This Project keep track of employee swap-in swap-out details. 
+ This Project keep track of employee swap-in(login) swap-out(logout) details. 
 ### Requirement :  
 * Generate the employee login, logout data.  
 * Employee can do multiple login and logout in a day 
